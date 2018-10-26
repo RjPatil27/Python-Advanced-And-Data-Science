@@ -23,7 +23,7 @@ print(content)
 Actually The Selenium client bindings tries to locate the "geckodriver" executable from the system PATH.
 You will need to add the directory containing the executable to the system path.
 donwload this file and store it folder and pass the path of geckodriver to webdriver.Firefox()
-''
+'''
 driver =webdriver.Firefox(executable_path='//home/sai//Music//Rajat//geckodriver-v0.23.0-linux64//geckodriver')
 
 for i in range(0,3):
