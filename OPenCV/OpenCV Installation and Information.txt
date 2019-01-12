@@ -1,0 +1,162 @@
+Learn OpenCV
+Steps :
+
+1) Install Anaconda (a python distribution)
+
+Download and install Anaconda 64-bit version 
+from https://www.continuum.io/downloads
+
+Download for python3
+
+While installing Anaconda make sure that you check both options:
+
+i) Add Anaconda to my PATH environment variable
+ii) Register Anaconda as my default Python
+
+2) Create Virtual Environment
+
+for newer version of anaconda, there is anaconda prompt
+use that cmd for further installation.
+
+Open the command prompt and execute the following command.
+i) conda create --name opencv-env python=3.6
+
+3) Install OpenCV
+
+i) Activate the environment
+	command : activate opencv-env
+
+ii) Install OpenCV and other important packages
+	
+	pip install numpy scipy matplotlib scikit-learn jupyter
+	pip install opencv-contrib-python
+	pip install dlib
+
+iii) Test Your Installation
+
+	import cv2
+	cv2.__version__
+	import dlib
+	dlib.__version__
+Enough with installtion part... now just on your anaconda and try importing cv2.
+
+*****************************************************
+
+Now Lets start learning opencv.......!!
+
+1) Load Images :
+	improt cv2
+	#Colored Image
+	img1 = cv2.imread("pic.jpg",1) #Read the image in RGB/Colored format.
+	img2 = cv2.imread("pic.jpg",0) #Read the image in gray scale image or black&white format.
+2) If we print the img,
+	then,
+	i) if image is colored then 3D array will get printed in pixel format.
+	ii) if image is black&white then only 2D array will get printed as O/P
+3) Check type of image
+	print(type(img))
+-------> <class 'numpy.ndarray'>
+4) Check shape of img
+	print(img.shape)
+-------> (600,800,3) #3 channel for colored image-3-Dimentioanal
+-------> (600,800) # 1 channel for black&white image.
+5) Displaying the image
+	cv2.imshow("pic",img) # opens a window to display the image
+	cv2.waitkey(0)	      # "pic" --> Name of the window
+	cv2.waitkey(2000)     # wait until a user presses a key or wait for 2000 milliseconds
+	cv2.destroyAllWindows(|) #closes the window based on waitforkey parameter.
+6) Resizing the image
+	resized_image = cv2.resize(img,(300,200)) #Resized image (300,200) new size
+	#tip--> (300,200) intstead of giving size, we can also represent above function as
+	resized_image = cv2.resize(img,(int(img.shape[0]/2,img.shape[1]/2)))
+
+**************************************************************
+
+7) Face Detection using OpenCV
+	Step i) Load Image
+		Create a cascade classifier. 
+		It will contain the feature of face.
+	Step ii) OpenCV will read the image and the feature file.
+		Search for the row and column values of the face numpy ndarray
+		(the face rectangle co-ordinates)
+	Step iii) Display the image with the rectangular face box.
+
+Code:
+
+import cv2
+
+#Create a CascadeClassifier Object
+face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+
+#Reading the image as it is
+img = cv2.imread("photo.jpg")
+
+#Reading the image as gray scale image
+grey_image = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+#Search the co-ordinates of the image
+faces = face_cascade.detectMultiScale(gray_image, scaleFactor = 1.05, minNeighbors = 5)
+
+for x,y,w,h in faces:
+	img = cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3)
+
+resized_image = cv2.resize(img,(int(img.shape[1]/7),int(img.shape[0]/7)))
+
+cv2.imshow("Gray",resized_image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+*************************************************************************
+
+8) Capturing a Video
+	We will be using OpenCV for reading frames/ images one-by-one
+	Simply, we are using loops to capture images which are capturing so fast that it will 
+	look like video to us.
+	i) improt cv2
+	   video = cv2.VideoCapture(0)
+	   #here, 0 number parameter specify that we will be using the webcam to capture
+		video.
+	   # VideoCapture() is an method to create VideoCapture object. it will trigger the camera.
+	   # '0' is to specify that use built-in camera. 
+	   video.release()
+	   # This will release the camera in some milliseconds.
+
+           Above code just ON the webcam light and then goes OFF.
+	   we have to add timedelay to capture some continues images.
+	   
+           import cv2,time
+	   video = cv2.VideoCapture(0)
+	   time.sleep(3)  # It will stop the script for 3 seconds
+	   video.release()
+
+Code for capturing first frame from video and detecting faces : 
+
+import time
+import cv2
+
+video = cv2.VideoCapture(0)
+check,frame = video.read()
+print(check)
+print(frame)
+time.sleep(3)
+#cv2.imshow("Webcam",frame) -> we will see frames here in video format.
+video.release()
+
+cv2.imshow("WebCam",frame)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+face_cascade = cv2.CascadeClassifier("D:\Rajat\Anaconda\envs\opencv-env\Lib\site-packages\cv2\data\haarcascade_frontalface_default.xml")
+
+grey_image = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+
+faces = face_cascade.detectMultiScale(grey_image, scaleFactor = 1.05, minNeighbors = 5)
+
+for x,y,w,h in faces:
+	frame = cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),3)
+
+cv2.imshow("WebCam",frame)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+*************************************************************
