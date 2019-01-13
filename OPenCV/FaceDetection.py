@@ -21,6 +21,8 @@ face_cascade = cv.CascadeClassifier("D:\Rajat\Anaconda\envs\opencv-env\Lib\site-
 
 #Below code is used to convert colored image into grey_image.
 grey_image = cv.cvtColor(resized,cv.COLOR_BGR2GRAY)
+#imwrite() function is used to save the image.
+cv.imwrite("MessiGray.jpg",grey_image)
 
 #using detectMultiScale() function, we will collects the faces from image.
 #here, scaleFactor is 5% which means it will resize tha image untill face gets detetcted.
