@@ -9,5 +9,5 @@ k = cv2.waitKey(0) & 0xFF            # 0xFF for 64 bit machine if only waitKey()
 if k==27:   #wait for ESC key to exit
     cv2.destroyAllWindows()
 elif k == ord('s'):  #wait for 's' key to save and exit
-    cv2.imwrite("C:\\Users\\Test\\Desktop\\C &odeOpenCV\\MessB&W.png",img)
+    cv2.imwrite("C:\\Users\\Test\\Desktop\\CodeOpenCV\\MessB&W.png",img)
     cv2.destroyAllWindows()
