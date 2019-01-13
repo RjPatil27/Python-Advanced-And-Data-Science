@@ -9,6 +9,7 @@ img = cv.imread("messi.jpg")
 resized = cv.resize(img,(int(img.shape[1]/2),int(img.shape[0]/2)))
 
 #Below code is for showing image.
+cv.namedWindow("MessiFace",cv.WINDOW_NORMAL) #NamedWindow() function used to resized the image.
 cv.imshow("MessiFace",resized)
 cv.waitKey(0)
 cv.destroyAllWindows()
