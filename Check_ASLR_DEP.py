@@ -1,3 +1,4 @@
+#This Code i made for testing purpose
 #Check ASLR and DEP is enabled or not.
 
 import argparse
